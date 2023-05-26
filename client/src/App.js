@@ -1,11 +1,14 @@
 import logo from "./logo.svg";
-import ProductSection from "./Components/ProductSection/Render code/RenderProduct";
-import MessageSection from "./Components/MessageSection/Render Code/RenderMessage";
+import Footer from "./Components/footer/Render Code/RenderFooter";
+// import ProductSection from "./Components/ProductSection/Render code/RenderProduct";
+// import MessageSection from "./Components/MessageSection/Render Code/RenderMessage";
 function App() {
   return (
     <div className="App">
       {/* <MessageSection /> */}
-      <ProductSection/>
+      {/* <ProductSection/> */}
+      <Footer />   
+
     </div>
   );
 }
