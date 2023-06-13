@@ -1,36 +1,58 @@
-const express = require("express");
-const app = express();
-const mongoose=require("mongoose");
-const cors = require("cors");
-const dotenv=require("dotenv")
+const express = require("express"); // Importing the Express framework
+const mongoose = require("mongoose"); // Importing the Mongoose library
+const cookieParser = require("cookie-parser"); // Importing the cookie-parser middleware
+const dotenv = require("dotenv"); // Importing the dotenv library for environment variables
+const cors = require("cors"); // Importing the cors library to handle cross-origin requests
+const loginsingupController = require("./Controllers/loginSignupControllers");
+const messageController = require("./Controllers/messageControllers");
 const cardDataRouter=require("./routers/cardDataRouter");
-const authenticateRouter=require("./routers/authenticate.js");
+dotenv.config(); // Loading environment variables from the .env file
 
-dotenv.config();
-const port = 5000;
-const url=process.env.MONGODB_URL
+// Connecting to the MongoDB database
 mongoose
-  .connect(url, {
-    maxPoolSize: 50,
-    wtimeoutMS: 2500,
-  })
-  .then(() => {
-    app.listen(port, () => {
-      console.log("Server is listening on port: ",port);
-    });
+  .connect(process.env.MONGO_URL)
+  .then((con) => {
+    console.log("DB Connection Successful");
   })
   .catch((err) => {
-    console.log("Error Occurred");
+    throw err;
   });
 
-
-  
-app.use(cors());
+const app = express(); // Creating an Express application
+app.use("/uploads", express.static(__dirname + "/uploads")); // Serving static files from the "/uploads" directory
+app.use(express.json()); // Parsing JSON requests
+app.use(cookieParser()); // Parsing cookies
+app.use(
+  cors({
+    credentials: true,
+    origin: process.env.CLIENT_URL,
+  })
+); // Configuring CORS options for cross-origin requests
 app.get('/Ebartr',(req,res)=>{
-    res.send("Hello World");
+  res.send("Hello World");
 }
 )
-app.use(express.json());
 app.use('/Ebartr/cards',cardDataRouter);
-app.use('/Ebartr/authenticate',authenticateRouter);
+// Route for testing the server
+app.get("/test", (req, res) => {
+  res.json("test ok");
+});
 
+// Route for fetching messages between two users
+app.get("/messages/:userId", messageController.fetchAllMessages);
+
+// Route for fetching all users
+app.get("/people", messageController.getAllUsers);
+
+// Route for fetching user profile
+app.get("/profile", messageController.fetchUser);
+
+// Route for user login
+app.post("/login", loginsingupController.userLogin);
+
+// Route for user logout
+app.post("/logout", loginsingupController.userLogout); //resetting our cookie
+
+// Route for user registration
+app.post("/register", loginsingupController.regUser);
+module.exports = app;

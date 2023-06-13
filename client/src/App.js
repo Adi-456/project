@@ -1,22 +1,26 @@
+import axios from "axios";
+import { UserContextProvider } from "./Components/Message/UserContext";
+import ChatRoutes from "./Components/Message/Routes";
+
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import Cardsdata from "./Components/cards/RenderCards";
-import Login from "./Components/login-signup/login";
-import SignUp from "./Components/login-signup/signup";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+// import Cardsdata from "./Components/cards/RenderCards";
 import logo from "./logo.svg";
-import Footer from "./Components/footer/Render Code/RenderFooter";
+// import Footer from "./Components/footer/Render Code/RenderFooter";
 // import ProductSection from "./Components/ProductSection/Render code/RenderProduct";
-// import MessageSection from "./Components/MessageSection/Render Code/RenderMessage";
 function App() {
+  axios.defaults.baseURL = "http://localhost:4040";
+  axios.defaults.withCredentials = true; //used to send cookie from server
   return (
-    <Router>
-    <Routes>
-     <Route exact path="/" element={<Cardsdata />} />
-     <Route exact path="/login" element={<Login />} />
-     <Route exact path="/Signup" element={<SignUp />} />
-     {/* <Route path="/card/:cardId" component={CardDetails} /> */}
-     </Routes>
- </Router>
+    <UserContextProvider>
+      <ChatRoutes />
+    </UserContextProvider>
+    //     <Router>
+    //     <Routes>
+    //      {/* <Route exact path="/" element={<Cardsdata />} /> */}
+    //      {/* <Route path="/card/:cardId" component={CardDetails} /> */}
+    //      </Routes>
+    //  </Router>
   );
 }
 

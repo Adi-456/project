@@ -4,16 +4,21 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon server.js"
   },
-  "author": "Somil Shukla",
+  "author": "Nishant Bansal",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.1.2",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.0",
     "mongodb": "^5.5.0",
-    "mongoose": "^7.2.2"
+    "mongoose": "^7.2.2",
+    "nodemon": "^2.0.22",
+    "validator": "^13.9.0",
+    "ws": "^8.13.0"
   }
 }
