@@ -374,7 +374,7 @@ export default function Chat() {
               <button
                 type="submit"
                 disabled={newMessageText.length < 1}
-                className="bg-blue-500 p-2 h-10 w-10 text-white rounded-sm"
+                className="bg-blue-500 p-2 h-10 w-10 text-white rounded-sm cursor-pointer"
               >
                 <FontAwesomeIcon icon={faPaperPlane} className="h-5 w-5" />
               </button>

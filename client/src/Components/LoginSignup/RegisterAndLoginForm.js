@@ -11,9 +11,10 @@ export default function RegisterAndLoginForm() {
   async function handleSubmit(ev) {
     ev.preventDefault();
     const url = isLoginOrRegister === "register" ? "register" : "login";
-    const { data } = await axios.post(url, { username,email, password });
+    const { data } = await axios.post(url, { username, email, password });
     setLoggedInUsername(username);
     setId(data.id);
+    window.location.href = 'message';
   }
   return (
     <div className="bg-blue-50 h-screen flex items-center">
@@ -49,7 +50,7 @@ export default function RegisterAndLoginForm() {
             <div>
               Already a member?
               <button
-                className="ml-1"
+                className="ml-1 text-blue-600 underline"
                 onClick={() => setIsLoginOrRegister("login")}
               >
                 Login here
@@ -60,7 +61,7 @@ export default function RegisterAndLoginForm() {
             <div>
               Dont have an account?
               <button
-                className="ml-1"
+                className="ml-1 text-blue-600 underline"
                 onClick={() => setIsLoginOrRegister("register")}
               >
                 Register

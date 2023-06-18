@@ -14,7 +14,7 @@ function Cardsdata(){
   
     const fetchCardsData = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/Ebartr/cards/cardsdata/${searchTerm ? `?search=${searchTerm}` : ''}`);
+        const response = await fetch(`http://localhost:4040/Ebartr/cards/cardsdata/${searchTerm ? `?search=${searchTerm}` : ''}`);
         const data = await response.json();
         setCards(data);
       } catch (error) {
