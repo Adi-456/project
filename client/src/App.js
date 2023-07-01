@@ -1,6 +1,7 @@
 import axios from "axios";
 import MessageSection from "./Components/Message/messageRender";
 import LoginSignup from "./Components/LoginSignup/loginSignupRender";
+import Form from "./Components/sellapp/sellapp";
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 // import Cardsdata from "./Components/cards/RenderCards";
@@ -21,6 +22,7 @@ function App() {
           {/* <Route exact path="/product" element={<ProductSection />} /> */}
           <Route path="/loginsignup" element={<LoginSignup />} />
           <Route exact path="/message" element={<MessageSection />} />
+          <Route path="/sell" element={<Form />} />
         </Routes>
         {/* <Footer /> */}
       </div>

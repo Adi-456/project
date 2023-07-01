@@ -8,6 +8,8 @@ const fs = require("fs"); // Importing the fs module for file system operations
 dotenv.config(); // Loading environment variables from the .env file
 const jwtSecret = process.env.JWT_SECRET; // Secret key for signing JWT
 const port = process.env.PORT || 3000;
+
+
 const server = app.listen(port, () => {
   console.log(`App running on port ${port}...`);
 });

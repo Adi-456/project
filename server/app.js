@@ -6,9 +6,11 @@ const cors = require("cors"); // Importing the cors library to handle cross-orig
 const loginsingupController = require("./Controllers/loginSignupControllers");
 const messageController = require("./Controllers/messageControllers");
 const cardDataRouter=require("./routers/cardDataRouter");
+const sellappRouter = require("./routers/sellappRouter");
+
 dotenv.config(); // Loading environment variables from the .env file
 
-// Connecting to the MongoDB database
+//Connecting to the MongoDB database
 mongoose
   .connect(process.env.MONGO_URL)
   .then((con) => {
@@ -55,4 +57,8 @@ app.post("/logout", loginsingupController.userLogout); //resetting our cookie
 
 // Route for user registration
 app.post("/register", loginsingupController.regUser);
+app.get('/Ebartr/sell',(req,res)=>{
+  res.send("hello sell");
+});
+app.use('/Ebartr/sellappRouter', sellappRouter );
 module.exports = app;
