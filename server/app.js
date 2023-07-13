@@ -7,7 +7,8 @@ const loginsingupController = require("./Controllers/loginSignupControllers");
 const messageController = require("./Controllers/messageControllers");
 const cardDataRouter=require("./routers/cardDataRouter");
 const sellappRouter = require("./routers/sellappRouter");
-
+const imgRouter = require("./routers/imgsrc");
+// const ItemDetailsRouter = require("./routers/ItemsDetailsRouter");
 dotenv.config(); // Loading environment variables from the .env file
 
 //Connecting to the MongoDB database
@@ -35,6 +36,8 @@ app.get('/Ebartr',(req,res)=>{
 }
 )
 app.use('/Ebartr/cards',cardDataRouter);
+app.use('/Ebartr/images',imgRouter);
+// app.use('/Ebartr/items',ItemDetailsRouter);
 // Route for testing the server
 app.get("/test", (req, res) => {
   res.json("test ok");
@@ -57,8 +60,8 @@ app.post("/logout", loginsingupController.userLogout); //resetting our cookie
 
 // Route for user registration
 app.post("/register", loginsingupController.regUser);
-app.get('/Ebartr/sell',(req,res)=>{
-  res.send("hello sell");
-});
+// app.get('/Ebartr/sell',(req,res)=>{
+//   res.send("hello sell");
+// });
 app.use('/Ebartr/sellappRouter', sellappRouter );
 module.exports = app;

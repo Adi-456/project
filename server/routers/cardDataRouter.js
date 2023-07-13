@@ -8,7 +8,7 @@ dotenv.config();
 
 const url = process.env.MONGO_URL;
 const dbName = "Ebartr";
-const collectionName = "cards";
+const collectionName = "funkit";
 // Endpoint to fetch the cards data
 router.get("/cardsdata", async (req, res) => {
   try {

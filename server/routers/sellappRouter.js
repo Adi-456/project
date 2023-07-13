@@ -4,7 +4,8 @@ const bodyParser = require('body-parser');
 const multer = require('multer');
 const MongoClient = require('mongodb').MongoClient;
 const Item = require('../models/Item');
-
+const dotenv = require("dotenv");
+dotenv.config();
 const upload = multer();
 
 const mongoUrl =

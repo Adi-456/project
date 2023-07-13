@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from "react";
 import SingleCard from "./singlecard"
-
-
-
+import "./card.css";
+// import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+// import ItemDetailsPage from "../Itemdetails/Itemdetails";
 function Cardsdata(){
     const [cards, setCards] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
@@ -33,6 +33,11 @@ function Cardsdata(){
   
     const handleCardClick = (cardId) => {
         window.location.href = `/card/${cardId}`;
+        // <Router>
+        // <Routes>
+        // <Route path="/card/${cardId}" element={<ItemDetailsPage prop={cardId}/>}/>
+        // </Routes>
+        // </Router>
     };
     return(
         <div>
@@ -41,16 +46,11 @@ function Cardsdata(){
         <button type="submit">Search</button>
       </form>
 
-      <div>
+      <div className="card-list">
         {cards.map((card) => (
           <div key={card._id} onClick={() => handleCardClick(card._id)}>
             {/* Display card details */}
-            <SingleCard  
-      src={card.src}
-      name={card.name}
-      position={card.position}
-      content={card.content}
-            />
+            <SingleCard  item={card}/>
           </div>
         ))}
       </div>

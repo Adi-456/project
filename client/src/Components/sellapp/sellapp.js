@@ -18,7 +18,7 @@ const Form = () => {
       const formData = new FormData();
       formData.append('collectionName', collectionName);
       formData.append('description', description);
-      formData.append('date', date);d
+      formData.append('date', date);
       formData.append('position', position);
       formData.append('image', image);
       formData.append('price', price);
@@ -30,6 +30,8 @@ const Form = () => {
         {
           headers: {
             'Content-Type': 'multipart/form-data',
+            Accept: 'multipart/form-data',
+            'Access-Control-Allow-Origin': '*',
           },
         }
       );
