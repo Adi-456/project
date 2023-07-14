@@ -9,7 +9,7 @@ import Cardsdata from "./Components/cards/RenderCards";
 // import logo from "./logo.svg";
 // import Footer from "./Components/footer/Render Code/RenderFooter";
 import Header from "./Components/Header/Render Code/RenderHeader";
-// import ProductSection from "./Components/ProductSection/Render code/RenderProduct";
+ import ProductSection from "./Components/ProductSection/Render code/RenderProduct";
 
 function App() {
   axios.defaults.baseURL = "http://localhost:4040";
@@ -20,10 +20,10 @@ function App() {
         <Header />
         <Routes>
           <Route exact path="/" element={<Cardsdata />} />
-          {/* <Route exact path="/product" element={<ProductSection />} /> */}
+          <Route exact path="/product" element={<ProductSection />} /> 
           <Route path="/loginsignup" element={<LoginSignup />} />
           <Route exact path="/message" element={<MessageSection />} />
-          <Route path="/sell" element={<Form />} />
+          <Route path="/sell" element={<Form />} /> 
           {/* <Route path="/dummy" element={<ItemDetailsPage/>}/> */}
         </Routes>
         {/* <Footer /> */}
