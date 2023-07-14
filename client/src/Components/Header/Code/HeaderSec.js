@@ -21,7 +21,7 @@ const Header = () => {
           </div>
         </div>
         <a
-          href="#"
+          href="/"
           className="text-gray-500 hover:text-gray-300 py-2 hidden lg:block underline-none"
         >
           Home
@@ -31,12 +31,19 @@ const Header = () => {
         <div className="lg:hidden">
           <DropdownMenu />
         </div>
+
+        <a href="sell">
         <button className="bg-transparent hover:bg-white text-white hover:text-gray-900 py-1 px-3 rounded border border-solid border-white mr-2 hidden lg:block">
           &#43; SELL
         </button>
-        <button className="bg-purple-700 hover:bg-purple-800 text-white py-1 px-3 rounded border border-solid border-purple-700 hover:border-purple-800 hidden lg:block">
-          Log In/Sign Up
-        </button>
+        </a>
+        
+        
+        <a href="LoginSignup">
+  <button className="bg-purple-700 hover:bg-purple-800 text-white py-1 px-3 rounded border border-solid border-purple-700 hover:border-purple-800 hidden lg:block">
+    Log In/Sign Up
+  </button>
+</a>
       </div>
     </nav>
   );

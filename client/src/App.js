@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Cardsdata from "./Components/cards/RenderCards";
 // import ItemDetailsPage from "./Components/Itemdetails/Itemdetails";
 // import logo from "./logo.svg";
-// import Footer from "./Components/footer/Render Code/RenderFooter";
+ import Footer from "./Components/footer/Render Code/RenderFooter";
 import Header from "./Components/Header/Render Code/RenderHeader";
  import ProductSection from "./Components/ProductSection/Render code/RenderProduct";
 
@@ -24,6 +24,7 @@ function App() {
           <Route path="/loginsignup" element={<LoginSignup />} />
           <Route exact path="/message" element={<MessageSection />} />
           <Route path="/sell" element={<Form />} /> 
+          <Route exact path="/footer" element={<Footer />} />
           {/* <Route path="/dummy" element={<ItemDetailsPage/>}/> */}
         </Routes>
         {/* <Footer /> */}

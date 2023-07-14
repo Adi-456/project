@@ -14,218 +14,6 @@ body {
 }
 
 /*-- Navigation -------------------------------------*/
-.navigation-container {
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid hsl(220, 14%, 75%);
-  width: 1110px;
-  margin: 0 auto;
-  padding: 31px 0 35px;
-}
-
-.logo-container {
-  margin-top: 4px;
-}
-
-nav {
-  margin: 0 56px;
-}
-
-ul {
-  display: flex;
-  justify-content: space-between;
-  width: 396px;
-  margin-bottom: 2px;
-}
-
-li {
-  list-style-type: none;
-}
-
-a {
-  color: hsl(219, 9%, 45%);
-  font-size: 15px;
-  text-decoration: none;
-  text-transform: capitalize;
-}
-
-a:hover {
-  color: hsl(220, 13%, 13%);
-  border-bottom: 4px solid hsl(26, 100%, 55%);
-  padding-bottom: 47px;
-}
-
-.cart-avatar-container {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  width: 118px;
-  margin-left: auto;
-}
-
-.cart-btn {
-  background-color: transparent;
-  align-self: center;
-  cursor: pointer;
-  border: none;
-  margin-top: 2px;
-}
-
-.cart-icon {
-  align-self: center;
-  margin-top: 3px;
-}
-
-.cart-btn:hover > .cart-icon {
-  filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(0%)
-    hue-rotate(268deg) brightness(107%) contrast(107%);
-}
-
-.cart-quantity {
-  position: absolute;
-  display: none;
-  background-color: hsl(26, 100%, 55%);
-  color: hsl(0, 0%, 100%);
-  font-size: 9px;
-  font-weight: 700;
-  border-radius: 16px;
-  top: 11px;
-  left: 9px;
-  padding: 1px 6px;
-}
-
-.cart-quantity.active {
-  display: block;
-}
-
-.cart-container {
-  position: absolute;
-  display: none;
-  flex-direction: column;
-  background-color: hsl(0, 0%, 100%);
-  border-radius: 10px;
-  box-shadow: 0 20px 30px -4px rgba(0, 0, 0, 0.2);
-  top: 78px;
-  right: -76px;
-  width: 360px;
-  height: 245px;
-}
-
-.cart-container.active {
-  display: flex;
-}
-
-.cart-label {
-  border-bottom: 1px solid hsl(220, 14%, 75%);
-  font-weight: 700;
-  text-transform: capitalize;
-  padding: 12px 24px 24px;
-}
-
-.cart-contents {
-  display: none;
-  flex-direction: column;
-}
-
-.cart-contents.active {
-  display: flex;
-}
-
-.cart-contents-subcontainer {
-  display: flex;
-  justify-content: space-between;
-  padding: 24px 24px;
-}
-
-.cart-thumbnail {
-  border-radius: 4px;
-  width: 50px;
-}
-
-.product-details {
-  display: flex;
-  flex-direction: column;
-}
-
-.product-name {
-  text-transform: capitalize;
-  margin-top: 1px;
-  margin-bottom: 6px;
-}
-
-.product-details span {
-  color: hsl(219, 9%, 45%);
-}
-
-.product-details strong {
-  color: hsl(0, 0%, 0%);
-}
-
-.delete-btn {
-  align-self: center;
-  background-color: hsl(0, 0%, 100%);
-  cursor: pointer;
-  border: none;
-  margin-top: 4px;
-}
-
-.checkout-btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: hsl(26, 100%, 55%);
-  color: hsl(0, 0%, 100%);
-  font-family: inherit;
-  font-size: 16px;
-  font-weight: 700;
-  text-transform: capitalize;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  margin: 2px auto;
-  padding: 18px 119px;
-}
-
-.empty-cart {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: inherit;
-  padding-bottom: 12px;
-}
-
-.empty-cart.active {
-  display: none;
-}
-
-.empty-cart span {
-  color: hsl(219, 9%, 45%);
-  font-weight: 700;
-  text-align: center;
-}
-
-.avatar {
-  position: relative;
-  background: url("https://raw.githubusercontent.com/frontendmentorio/ecommerce-product-page/main/images/image-avatar.png");
-  background-repeat: none;
-  background-size: cover;
-  background-position: center;
-  cursor: pointer;
-  width: 50px;
-  height: 50px;
-  margin-top: 1px;
-}
-
-.avatar:hover::after {
-  position: absolute;
-  content: "";
-  border: 2px solid hsl(26, 100%, 55%);
-  border-radius: 50%;
-  top: 0;
-  left: 0;
-  width: 46px;
-  height: 46px;
-}
 
 .main-container {
   display: flex;
@@ -235,67 +23,24 @@ a:hover {
   padding: 89px;
 }
 
-.product-container {
-  position: relative;
-  top: 0;
-  left: 0;
-}
-
-.product-image {
-  display: none;
-  overflow: hidden;
+/* --------------------------------------- ---------------------------*/
+.left {
   cursor: pointer;
   border-radius: 16px;
   width: 445px;
   height: 445px;
 }
 
+/* --------------------------------------- ---------------------------*/
+
 .product-img {
+  border-radius: 20px;
   width: inherit;
   height: inherit;
 }
 
-.thumbnail-container {
-  display: flex;
-  justify-content: space-between;
-  width: 445px;
-  margin-top: 32px;
-}
-
 /* ::after does not work with img tags, so I  made
    a sub container */
-.thumbnail-image {
-  position: relative;
-  background-color: hsl(0, 0%, 100%);
-  border-radius: 11px;
-  width: 88px;
-  height: 88px;
-}
-
-.thumbnail-image.active::after {
-  position: absolute;
-  content: "";
-  border: 2px solid hsl(26, 100%, 55%);
-  border-radius: 12px;
-  top: -2px;
-  left: -2px;
-  width: 88px;
-  height: 88px;
-}
-
-.product-thumbnail {
-  cursor: pointer;
-  border-radius: 10px;
-  width: 88px;
-}
-
-.thumbnail-image.active > .product-thumbnail {
-  opacity: 0.25;
-}
-
-.product-thumbnail:hover {
-  opacity: 0.5;
-}
 
 .right {
   display: flex;

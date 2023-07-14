@@ -42,10 +42,14 @@ export default function Slideshow() {
 
             {/* <!-- Cart Controls ---------------------------------------------------> */}
             <div className="add-to-cart">
+              <a href="message">
               <button className="add-to-cart-btn" id="add-to-cart-btn">
-                Call Seller
+                Chat with Seller
               </button>
+              </a>
+              
             </div>
+            
           </section>
         </div>
         {/* <!-- Lightbox ---------------------------------------------------> */}
