@@ -55,7 +55,7 @@ function App() {
   return (
     <Router>
       <div>
-        <Header />
+        {/* <Header /> */}
         <Routes>
           <Route exact path="/" element={<Cardsdata />} />
           {/* <Route exact path="/product" element={<ProductSection />} /> */}

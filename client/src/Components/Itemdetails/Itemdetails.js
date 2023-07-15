@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import './ItemDetails.css';
+import Header from '../Header/Code/HeaderSec';
 
 const ItemDetailsPage = () => {
   //const { itemId } = useParams();
@@ -43,6 +44,8 @@ const ItemDetailsPage = () => {
   }
 
   return (
+    <div>
+      <Header />
     <div className="item-details-container">
       {/* <img className="item-details-image" src={`data:${item.image.contentType};base64,${Buffer.from(item.image.data).toString('base64')}`} alt="Item" /> */}
       <div className="item-details-content">
@@ -56,6 +59,7 @@ const ItemDetailsPage = () => {
           <button>Contact Seller</button>
         </div>
       </div>
+    </div>
     </div>
   );
 };

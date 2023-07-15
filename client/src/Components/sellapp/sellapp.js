@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './sellapp.css';
+import Header from '../Header/Code/HeaderSec';
 
 const Form = () => {
   const [collectionName, setCollectionName] = useState('');
@@ -42,6 +43,8 @@ const Form = () => {
   };
 
   return (
+    <div>
+      <Header />
     <form className="form-container" onSubmit={handleSubmit}>
       <div className="form-group">
         <label htmlFor="collectionName">Collection Name:</label>
@@ -107,6 +110,7 @@ const Form = () => {
       </div>
       <button type="submit">Submit</button>
     </form>
+    </div>
   );
 };
 
