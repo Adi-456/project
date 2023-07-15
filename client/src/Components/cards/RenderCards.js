@@ -31,8 +31,8 @@ function Cardsdata(){
       fetchCardsData();
     };
   
-    const handleCardClick = (cardId) => {
-        window.location.href = `/card/${cardId}`;
+    const handleCardClick = (cardId,cardpos) => {
+        window.location.href = `/card/${cardpos}/${cardId}`;
         // <Router>
         // <Routes>
         // <Route path="/card/${cardId}" element={<ItemDetailsPage prop={cardId}/>}/>
@@ -40,7 +40,8 @@ function Cardsdata(){
         // </Router>
     };
     return(
-        <div>
+          <div>
+          
       <form onSubmit={handleSubmit}>
         <input type="text" value={searchTerm} onChange={handleSearch} />
         <button type="submit">Search</button>
@@ -48,13 +49,21 @@ function Cardsdata(){
 
       <div className="card-list">
         {cards.map((card) => (
-          <div key={card._id} onClick={() => handleCardClick(card._id)}>
+          <div key={card._id} onClick={() => handleCardClick(card._id, card.position)}>
             {/* Display card details */}
             <SingleCard  item={card}/>
           </div>
         ))}
       </div>
-    </div>
+      {/* <Router>
+      <Route
+          exact
+          path="/card/:searchTerm/:cardId"
+          component={ItemDetailsPage}
+        />
+         </Router> */}
+      </div>
+   
     );
 }
 export default Cardsdata;
