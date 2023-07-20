@@ -13,8 +13,9 @@ export default function RegisterAndLoginForm() {
     const url = isLoginOrRegister === "register" ? "register" : "login";
     const { data } = await axios.post(url, { username, email, password });
     setLoggedInUsername(username);
+    console.log(username);
     setId(data.id);
-    window.location.href = 'message';
+    window.location.href = '/';
   }
   return (
     <div className="bg-blue-50 h-screen flex items-center">
