@@ -21,6 +21,29 @@ exports.fetchAllMessages = async (req, res) => {
   res.json(messages);
 };
 
+exports.fetchAllUsers = async (req, res) => {
+  try {
+    const userData = await getUserDataFromRequest(req);
+    const ourUserId = userData.userId;
+
+    const messages = await Message.find({
+      $or: [{ sender: ourUserId }, { recipient: ourUserId }],
+    }).sort({ createdAt: 1 });
+    const uniqueUserIds = Array.from(
+      new Set([
+        ...messages.map((msg) => msg.sender),
+        ...messages.map((msg) => msg.recipient),
+      ])
+    );
+    const users = await User.find({ _id: { $in: uniqueUserIds } });
+
+    res.json(users);
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    res.status(500).json({ error: "Failed to fetch users." });
+  }
+};
+
 exports.getAllUsers = async (req, res) => {
   const users = await User.find({}, { _id: 1, username: 1 });
   // { _id: 1, username: 1 }->we only want id and username
@@ -39,4 +62,10 @@ exports.fetchUser = (req, res) => {
   } else {
     res.status(401).json("no token");
   }
+};
+
+exports.getUser = async (req, res) => {
+  const userID = req.params.userID;
+  const users = await User.find({_id:userID});
+  res.json(users);
 };

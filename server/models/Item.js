@@ -7,6 +7,7 @@ const ItemSchema = new mongoose.Schema({
   image: { data: Buffer, contentType: String }, 
   contactNo: String, 
   price: { type: Number }, 
+  userID:String
 });
 
 const Item = mongoose.model("Item", ItemSchema);

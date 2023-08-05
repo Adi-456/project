@@ -4,6 +4,8 @@ import { UserContext } from "./UserContext"; // Import the UserContext from User
 import { uniqBy } from "lodash"; // Import the uniqBy function from Lodash library
 import axios from "axios"; // Import the axios library for making HTTP requests
 import Contact from "./Contact"; // Import the Contact component
+import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPaperclip,
@@ -20,8 +22,12 @@ export default function Chat() {
   const [messages, setMessages] = useState([]); // Declare a state variable "messages" to hold the chat messages
   const { username, id, setId, setUsername } = useContext(UserContext); // Access values from UserContext using useContext hook
   const divUnderMessages = useRef(); // Create a ref to be used for scrolling to the bottom of messages
+  const [onlineUsersFetched, setOnlineUsersFetched] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [offer, setOffer] = useState(false);
-
+  const [myUser, setMyUser] = useState({});
+  const navigate = useNavigate();
+  const location = useLocation();
   useEffect(() => {
     connectToWs(); // Call the function to establish WebSocket connection when the selectedUserId changes
   }, [selectedUserId]);
@@ -40,6 +46,61 @@ export default function Chat() {
       }, 1000); // if we reload the file/changed the selcted user then we should again connect to ws
     });
   }
+  useEffect(() => {
+    axios.get("/getContact").then((res) => {
+      const offlinePeopleArr = res.data
+        .filter((p) => p._id !== id)
+        .filter((p) => !Object.keys(onlinePeople).includes(p._id));
+    
+      const usrsData = res.data.reduce((acc, user) => {
+        acc[user._id] = user.username;
+        return acc;
+      }, {});
+      setMyUser(usrsData);
+      // filtering out ourself and online people from all the users
+      // Convert the array of offline people into an object with IDs as keys
+      const offlinePeopleObj = {};
+      offlinePeopleArr.forEach((p) => {
+        offlinePeopleObj[p._id] = p;
+      });
+      console.log(offlinePeopleArr);
+      // Update the offline people state
+      setOfflinePeople(offlinePeopleObj);
+      // connectToWs();
+      const currentURL = window.location.href;
+      const queryParams = new URLSearchParams(currentURL.split("?")[1]);
+      const selectUserValue = queryParams.get("selectUser");
+
+      axios.get(`/myUser/${selectUserValue}`).then((res) => {
+        console.log(res.data[0].username);
+        const userData = res.data[0];
+        setMyUser((prevUsers) => {
+          // Combine the existing users with the new single user
+          
+          return { ...prevUsers, [userData._id]:userData.username };
+        });
+        setLoading(false);
+        console.log("hello", myUser);
+      });
+
+      modifyURLAndRedirect(selectUserValue);
+      console.log(selectUserValue);
+    });
+  }, []);
+  function modifyURLAndRedirect(user) {
+    
+    let newURL = `?selectUser=${user}`;
+    navigate(newURL);
+  }
+  // useEffect(() => {
+  //   connectToWs(); // Connect to WebSocket separately after fetching offline users
+  // }, [offlinePeople]); // Add offlinePeople as a dependency to ensure the WebSocket connection is made after offlinePeople state is updated
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const selectUserValue = queryParams.get("selectUser");
+    setSelectedUserId(selectUserValue);
+  }, [location]);
 
   function showOnlinePeople(peopleArray) {
     // Function to update online people state
@@ -156,6 +217,7 @@ export default function Chat() {
 
       // Update the offline people state
       setOfflinePeople(offlinePeople);
+      setOnlineUsersFetched(true);
     });
   }, [onlinePeople]);
 
@@ -180,37 +242,46 @@ export default function Chat() {
     <div className="flex h-screen">
       <div className=" bg-white w-1/3 flex flex-col">
         <Logo name={username} />
-        <div className="overflow-y-scroll">
-          {Object.keys(onlinePeopleExclOurUser).map(
-            (
-              userId //showing log for each online user
-            ) => (
-              <Contact
-                key={userId}
-                id={userId}
-                online={true}
-                username={onlinePeopleExclOurUser[userId]}
-                onClick={() => {
-                  setSelectedUserId(userId);
-                  console.log({ userId });
-                }}
-                isProfile={false}
-                selected={userId === selectedUserId}
-              />
-            )
-          )}
-          {Object.keys(offlinePeople).map((userId) => (
-            <Contact
-              key={userId}
-              id={userId}
-              online={false}
-              isProfile={false}
-              username={offlinePeople[userId].username}
-              onClick={() => setSelectedUserId(userId)}
-              selected={userId === selectedUserId}
-            />
-          ))}
-        </div>
+
+        {!loading && (
+          <div className="overflow-y-scroll">
+            {Object.keys(onlinePeopleExclOurUser).map(
+              (userId) =>
+                myUser[userId] && (
+                  <Contact
+                    key={userId}
+                    id={userId}
+                    online={true}
+                    username={onlinePeopleExclOurUser[userId]}
+                    onClick={() => {
+                      setSelectedUserId(userId);
+                      modifyURLAndRedirect(userId);
+                      console.log(userId);
+                    }}
+                    isProfile={false}
+                    selected={userId === selectedUserId}
+                  />
+                )
+            )}
+            {Object.keys(offlinePeople).map(
+              (userId) =>
+                myUser[userId] && (
+                  <Contact
+                    key={userId}
+                    id={userId}
+                    online={false}
+                    isProfile={false}
+                    username={offlinePeople[userId].username}
+                    onClick={() => {
+                      setSelectedUserId(userId);
+                      modifyURLAndRedirect(userId);
+                    }}
+                    selected={userId === selectedUserId}
+                  />
+                )
+            )}
+          </div>
+        )}
         <div className="p-2 text-center flex items-center justify-center">
           <button
             onClick={logout}
@@ -224,20 +295,28 @@ export default function Chat() {
         {!!selectedUserId && (
           <div className="bg-blue-500  h-14 flex item-center">
             {onlinePeopleExclOurUser[selectedUserId] ? (
-              <Contact
-                key={selectedUserId}
-                id={selectedUserId}
-                online={true}
-                username={onlinePeopleExclOurUser[selectedUserId]}
-                selected={false}
-                isProfile={true}
-              />
+              Object.keys(onlinePeopleExclOurUser).map(
+                (userId) =>
+                  userId === selectedUserId && (
+                    <Contact
+                      key={userId}
+                      id={userId}
+                      online={true}
+                      username={onlinePeopleExclOurUser[userId]}
+                      isProfile={true}
+                      selected={false}
+                    />
+                  )
+              )
             ) : (
               <Contact
                 key={selectedUserId}
                 id={selectedUserId}
                 online={false}
-                username={offlinePeople[selectedUserId].username}
+                // username={offlinePeople[selectedUserId].username}
+                username={
+                  offlinePeople[selectedUserId]?.username ?? "Unknown User"
+                }
                 selected={false}
                 isProfile={true}
               />

@@ -2,8 +2,20 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './sellapp.css';
 import Header from '../Header/Code/HeaderSec';
-
+import  {useEffect} from "react";
 const Form = () => {
+  const [username, setUsername] = useState(null);
+  const [id, setId] = useState(null);
+
+  // Fetch user profile data when the component mounts
+  useEffect(() => {
+    // Send an HTTP GET request to '/profile' endpoint using Axios
+    axios.get("/profile").then((response) => {
+      // Update the state variables with the received data
+      setId(response.data.userId);
+      setUsername(response.data.username);
+    });
+  }, []);
   const [collectionName, setCollectionName] = useState('');
   const [description, setDescription] = useState('');
   const [date, setDate] = useState('');
@@ -24,6 +36,8 @@ const Form = () => {
       formData.append('image', image);
       formData.append('price', price);
       formData.append('contactNo', contactNo);
+      formData.append('userID', id);
+      console.log(id);
 
       const response = await axios.post(
         'http://localhost:4040/Ebartr/sellappRouter/sell',

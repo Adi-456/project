@@ -17,7 +17,7 @@ router.use(bodyParser.urlencoded({ extended: true }));
 
 router.post('/sell', upload.single('image'), async (req, res) => {
   try {
-    const { collectionName, description, date, position, price, contactNo } = req.body;
+    const { collectionName, description, date, position, price, contactNo,userID } = req.body;
     const image = req.file;
 
     const client = await MongoClient.connect(mongoUrl, { useUnifiedTopology: true });
@@ -37,6 +37,7 @@ router.post('/sell', upload.single('image'), async (req, res) => {
       price,
       contactNo,
       image: { data: image.buffer, contentType: image.mimetype },
+      userID
     });
 
     client.close();

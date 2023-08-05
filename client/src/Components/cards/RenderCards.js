@@ -34,8 +34,8 @@ function Cardsdata(){
       fetchCardsData();
     };
   
-    const handleCardClick = (cardId,cardpos) => {
-        window.location.href = `/card/${cardpos}/${cardId}`;
+    const handleCardClick = (cardId,cardpos,cardUserID) => {
+        window.location.href = `/card/${cardpos}/${cardId}?currUser=${cardUserID}`;
     };
     return(
           <div>
@@ -50,7 +50,7 @@ function Cardsdata(){
         value={searchTerm}
         onChange={handleSearch}
         placeholder="Search Product..."
-        className="text-gray-500 hover:text-gray-300 py-2 w-3/4 rounded-l-lg"
+        className="text-gray-800  py-2 w-3/4 rounded-l-lg"
       />
       <button type="submit" className="bg-white h-10 w-10 flex justify-center items-center ml-0 rounded-r-lg cursor-pointer border">
         <FontAwesomeIcon icon={faMagnifyingGlass} className="" />
@@ -81,7 +81,7 @@ function Cardsdata(){
 </nav>
       <div className="card-list">
         {cards.map((card) => (
-          <div key={card._id} onClick={() => handleCardClick(card._id, card.position)}>
+          <div key={card._id} onClick={() => handleCardClick(card._id, card.position,card.userID)}>
             {/* Display card details */}
             <SingleCard  item={card}/>
           </div>

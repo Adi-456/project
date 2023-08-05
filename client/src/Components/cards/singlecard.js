@@ -3,7 +3,6 @@ import "./card.css";
 
 function ItemCard({ item }) {
   const [imageUrl, setImageUrl] = useState('');
-
   useEffect(() => {
     const fetchImageUrl = async () => {
       try {
@@ -14,7 +13,6 @@ function ItemCard({ item }) {
         console.error('Error fetching image URL:', error);
       }
     };
-
     fetchImageUrl();
   }, [item]);
 
@@ -29,5 +27,4 @@ function ItemCard({ item }) {
   </div>
   );
 }
-
 export default ItemCard;

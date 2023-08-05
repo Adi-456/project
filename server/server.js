@@ -4,12 +4,11 @@ const app = require("./app");
 const Message = require("./models/Message"); // Importing the Message model
 const ws = require("ws"); // Importing the WebSocket library
 const fs = require("fs"); // Importing the fs module for file system operations
-const cors = require("cors"); 
+const cors = require("cors");
 
 dotenv.config(); // Loading environment variables from the .env file
 const jwtSecret = process.env.JWT_SECRET; // Secret key for signing JWT
 const port = process.env.PORT || 4040;
-
 
 const server = app.listen(port, () => {
   console.log(`App running on port ${port}...`);
